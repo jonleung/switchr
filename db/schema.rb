@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111216013338) do
+ActiveRecord::Schema.define(:version => 20111216200022) do
+
+  create_table "certs", :force => true do |t|
+    t.string   "device_name"
+    t.integer  "user_id"
+    t.integer  "device_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "devices", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.boolean  "desired_state"
+    t.boolean  "actual_state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "phone"

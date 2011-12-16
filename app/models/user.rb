@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  
+  has_many :certs
+  has_many :devices, :through => :certs
+  
   attr_accessible :phone, :vcode_confirmation
   
   validates_presence_of :phone
@@ -7,9 +11,12 @@ class User < ActiveRecord::Base
   @@r = Random.new
   
   def set_vcode
-    self.vcode = @@r.rand(10000...99999).to_s
-    session_hash = self.vcode
-    return vcode
+    if self.vcode.nil?
+      self.vcode = @@r.rand(10000...99999).to_s
+      self.session_hash = self.vcode
+    end
+    
+    return self.vcode
   end
   
 end

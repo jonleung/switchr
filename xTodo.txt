@@ -1,3 +1,63 @@
+User
+  has_many :certs
+  has_many :devices, :through => certs
+  
+Cert
+  belongs_to: user
+  belongs_to: device
+  
+  device_name
+
+Device
+  hash_many :certs
+  
+  code
+  desired_state
+  actual_state
+  
+iPhone Set On
+  Rails Sets Desired State to On
+    Rails Tells Node to turn it On
+      Node Turns It On
+      Node Tells Rails Its On
+      
+Rails Tells iPhone Is On
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Device
 
 User
