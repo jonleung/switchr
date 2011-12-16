@@ -1,0 +1,31 @@
+Device
+
+User
+  phone
+  cur_phone_confirmation
+  confirmed_phone_confirmation
+  session_hash
+  
+Website:
+  Login
+    phone
+    
+  
+Phone
+  Login
+    I am 610
+    
+I signup with 610
+  I get a text message saying iphone_confirmation = 4444 (I am 610)
+  Go to app, type in 4444, it responds  with a protected hash that I store locally(I am 610)
+  That app, with the hash, will now have access to all resources
+  
+  If you change phone numbers, you will get a new confirmation
+  
+
+     t.string :phone
+      t.string :vcode
+      t.boolean :is_activated
+      t.string :session_hash
+
+

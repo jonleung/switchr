@@ -1,0 +1,11 @@
+<h1> What is your Phone Number? </h1>
+
+<%= form_tag users_path do %>
+  <p>
+    <%= label_tag :phone %><br>
+    <%= text_field_tag :phone, params[:phone] %>
+  </p>
+  <p class="button">
+    <%= submit_tag "signup" %>
+  </p>
+<% end %>

@@ -1,0 +1,14 @@
+<h1>Confirmation Cod</h1>
+<h2>
+    We sent a text message to (<%= session[:phone] %>) with your verification code.
+</h2>
+
+<%= form_tag sessions_path do %>
+  <p>
+    <%= label_tag :VerificationCode %><br>
+    <%= text_field_tag :vcode, params[:vcode] %>
+  </p>
+  <p class="button">
+    <%= submit_tag "verify" %>
+  </p>
+<% end %>

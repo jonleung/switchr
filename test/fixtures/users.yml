@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  phone: MyString
+  vcode: MyString
+  is_activated: false
+  session_hash: MyString
+
+two:
+  phone: MyString
+  vcode: MyString
+  is_activated: false
+  session_hash: MyString
