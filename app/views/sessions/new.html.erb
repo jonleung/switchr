@@ -1,12 +1,15 @@
-<h1>Confirmation Code</h1>
-<h2>
-    We sent a text message to <%= session[:phone] %> with your verification code.
-</h2>
+<h1> What is your Username Number? </h1>
 
-<%= form_tag sessions_path do %>
+<%= form_tag users_path do %>
   <p>
-    Verification Code:
-    <%= text_field_tag :vcode, params[:vcode] %>
-    <%= submit_tag "verify" %>
+    <%= label_tag :username %><br>
+    <%= text_field_tag :username, params[:username] %>
+  </p>
+  <p>
+    <%= label_tag :password %><br>
+    <%= text_field_tag :password, params[:password] %>
+  </p>
+  <p class="button">
+    <%= submit_tag "authenticate" %>
   </p>
 <% end %>

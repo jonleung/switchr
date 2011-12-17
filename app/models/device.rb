@@ -18,7 +18,7 @@ class Device < ActiveRecord::Base
   def users_string
     output_string = ""
     self.users.each do |user|
-      output_string += "#{user.phone}, " 
+      output_string += "#{user.username}, " 
     end
     return output_string
   end

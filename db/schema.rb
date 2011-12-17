@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111216200022) do
+ActiveRecord::Schema.define(:version => 20111217193402) do
 
   create_table "certs", :force => true do |t|
     t.string   "name"
@@ -29,10 +29,19 @@ ActiveRecord::Schema.define(:version => 20111216200022) do
     t.datetime "updated_at"
   end
 
+  create_table "devs", :force => true do |t|
+    t.string   "email"
+    t.string   "password_hash"
+    t.string   "api_key"
+    t.string   "api_secret"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
-    t.string   "phone"
-    t.string   "vcode"
-    t.boolean  "is_activated"
+    t.string   "username"
+    t.string   "password_hash"
+    t.string   "password_hint"
     t.string   "session_hash"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -1,11 +1,16 @@
 Switchr::Application.routes.draw do
+
+  resources :dev_sessions, :only => [:new, :create, :destroy]
+  get 'developer' => 'dev_sessions#new', :as => :dev_login
+  get 'developer/logout' => 'dev_sessions#destroy', :as => :dev_logout
   
-=begin
-
-
-
-=end
+  resources :devs, :only => [:index, :new, :create, :show, :destroy]
+  get 'developer/dashboard' => 'devs#show', :as => :dev_dashboard
   
+ 
+
+
+
   root :to => 'users#new'
   
   match 'dashboard' => 'certs#index', :as => :dashboard, :via => :get
@@ -17,7 +22,6 @@ Switchr::Application.routes.draw do
   resources :sessions
   resources :devices
   resources :certs
-  
 
     
 end

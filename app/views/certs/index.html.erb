@@ -1,0 +1,51 @@
+  <p style="text-align:right;">
+  <%= link_to "Logout", logout_path%>
+</p>
+
+<h1> Devices </h1>
+
+<!-- username=<%= session[:username] %>
+session_hash=<%= session[:session_hash] %> -->
+
+<p>
+  <%= link_to "Register New Device", new_cert_path %>
+  
+</p>
+  
+<table style="text-align:left;">
+  <tr>
+    <th width="400">Created At</th>
+    <th width="400">Updated At</th>
+    <th width="200">Name</th>
+    <th width="200">Code</th>
+    <th width="200">Users</th>
+    <th width="200">Desired State</th>
+    <th width="200">Actual State</th>
+    <th width="200">Turn On / Off</th>
+    <th width="200">Show</th>
+    <th width="200">Destroy</th>
+  </tr>
+
+<% @certs.each do |cert| %>
+  <tr>
+    <td><%= cert.device.created_at %></td>
+    <td><%= cert.device.updated_at %></td>
+    <td><%= cert.name %></td>
+    <td><%= cert.device.code %></td>
+    <td><%= cert.device.users_string %></td>
+    
+    <td>
+      <% if cert.device.desired_state == true %>
+        <%= button_to "Turn Off", {:controller => 'devices', :action => "switch", :switch => "off", :device_code => cert.device.code} %>
+      <% elsif cert.device.desired_state == false %>
+         <%= button_to "Turn On", {:controller => 'devices', :action => "switch", :switch => "on", :device_code => cert.device.code} %>
+      <% end %>
+    </td>
+    
+    <td><%= cert.device.desired_state %></td>
+    <td><%= cert.device.actual_state %></td>
+    <td><%= link_to 'Show', cert %></td>
+    <td><%= link_to 'Destroy', cert, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>

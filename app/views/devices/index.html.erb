@@ -1,0 +1,32 @@
+<h1>Devices</h1>
+
+<p>
+  <%= button_to "Create New Device", :controller => 'devices', :method => :post %>
+  
+</p>
+  
+<table style="text-align:left;">
+  <tr>
+    <th width="400">Created At</th>
+    <th width="400">Updated At</th>
+    <th width="200">Code</th>
+    <th width="200">Users</th>
+    <th width="200">Desired State</th>
+    <th width="200">Actual State</th>
+    <th width="200">Show</th>
+    <th width="200">Destroy</th>
+  </tr>
+
+<% @devices.each do |device| %>
+  <tr>
+    <td><%= device.created_at %></td>
+    <td><%= device.updated_at %></td>
+    <td><%= device.code %></td>
+    <td><%= device.users_string %></td>
+    <td><%= device.desired_state %></td>
+    <td><%= device.actual_state %></td>
+    <td><%= link_to 'Show', device %></td>
+    <td><%= link_to 'Destroy', device, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>

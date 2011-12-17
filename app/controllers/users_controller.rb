@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   
   def new
-    if session[:phone].present?
-      @user = User.find_by_phone(session[:phone])
+    if session[:username].present?
+      @user = User.find_by_username(session[:username])
       if @user.present? && session[:session_hash].present? && 
         session[:session_hash] == @user.session_hash
         redirect_to certs_path
@@ -12,28 +12,28 @@ class UsersController < ApplicationController
   
   def create
     #Just Phone Present
-    @user = User.find_by_phone(params[:phone])
+    @user = User.find_by_username(params[:username])
     if @user.present?
-      txt(@user.phone, @user.vcode)
-      session[:phone] = params[:phone]
-      redirect_to new_session_path, :notice => "You already have an account, your security code is being sent to #{@user.phone}"
+      txt(@user.username, @user.vcode)
+      session[:username] = params[:username]
+      redirect_to new_session_path, :notice => "You already have an account, your security code is being sent to #{@user.username}"
     else
       @user = User.new
-      @user.phone = params[:phone]
-      session[:phone] = params[:phone]
+      @user.username = params[:username]
+      session[:username] = params[:username]
       vcode = @user.set_vcode
-      txt(@user.phone, @user.vcode)
+      txt(@user.username, @user.vcode)
       if @user.save
         redirect_to new_session_path
      else
-        flash.now[:error] = "#{params[:phone]} is an invalid phone number"
+        flash.now[:error] = "#{params[:username]} is an invalid username number"
         render :action => "new"
       end
     end
     return
   end
   
-  def txt(phone, vcode)
+  def txt(username, vcode)
     
     debugging = true
     
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
       @client = Twilio::REST::Client.new account_sid, auth_token
       @client.account.sms.messages.create(
         :from => '+14848190619',
-        :to => phone,
+        :to => username,
         :body => "Hi! Your Switchr confirmation code is #{vcode}"
       )
     end

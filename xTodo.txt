@@ -51,13 +51,13 @@ Device
   desired_state
   actual_state
   
-iPhone Set On
+iUsername Set On
   Rails Sets Desired State to On
     Rails Tells Node to turn it On
       Node Turns It On
       Node Tells Rails Its On
       
-Rails Tells iPhone Is On
+Rails Tells iUsername Is On
   
 
   
@@ -97,29 +97,29 @@ Rails Tells iPhone Is On
 Device
 
 User
-  phone
-  cur_phone_confirmation
-  confirmed_phone_confirmation
+  username
+  cur_username_confirmation
+  confirmed_username_confirmation
   session_hash
   
 Website:
   Login
-    phone
+    username
     
   
-Phone
+Username
   Login
     I am 610
     
 I signup with 610
-  I get a text message saying iphone_confirmation = 4444 (I am 610)
+  I get a text message saying iusername_confirmation = 4444 (I am 610)
   Go to app, type in 4444, it responds  with a protected hash that I store locally(I am 610)
   That app, with the hash, will now have access to all resources
   
-  If you change phone numbers, you will get a new confirmation
+  If you change username numbers, you will get a new confirmation
   
 
-     t.string :phone
+     t.string :username
       t.string :vcode
       t.boolean :is_activated
       t.string :session_hash

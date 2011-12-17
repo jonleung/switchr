@@ -1,9 +1,9 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
-      t.string :phone
-      t.string :vcode
-      t.boolean :is_activated
+      t.string :username
+      t.string :password_hash
+      t.string :password_hint
       t.string :session_hash
 
       t.timestamps
