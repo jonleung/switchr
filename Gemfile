@@ -7,6 +7,7 @@ gem 'rails', '3.1.2'
 
 gem 'sqlite3'
 gem 'twilio-ruby'
+gem 'em-websocket'
 
 # Gems used only for assets and not required
 # in production environments by default.

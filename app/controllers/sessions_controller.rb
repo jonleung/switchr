@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       if params[:vcode] == @user.vcode
         session[:session_hash] = @user.vcode
         @user.is_activated = true
-        redirect_to dashboard_path
+        redirect_to certs_path
       else
         flash.now[:error] = "#{params[:vcode]} is invalid for #{session[:phone]}"
         render "new"

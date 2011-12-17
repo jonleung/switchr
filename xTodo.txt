@@ -1,3 +1,39 @@
+cmd+f  "TODO"
+
+Device connects to ws 8001
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 User
   has_many :certs
   has_many :devices, :through => certs

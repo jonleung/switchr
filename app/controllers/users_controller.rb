@@ -3,8 +3,9 @@ class UsersController < ApplicationController
   def new
     if session[:phone].present?
       @user = User.find_by_phone(session[:phone])
-      if session[:session_hash] == @user.session_hash
-        redirect_to dashboard_path
+      if @user.present? && session[:session_hash].present? && 
+        session[:session_hash] == @user.session_hash
+        redirect_to certs_path
       end
     end
   end
@@ -21,6 +22,7 @@ class UsersController < ApplicationController
       @user.phone = params[:phone]
       session[:phone] = params[:phone]
       vcode = @user.set_vcode
+      txt(@user.phone, @user.vcode)
       if @user.save
         redirect_to new_session_path
      else
@@ -30,16 +32,6 @@ class UsersController < ApplicationController
     end
     return
   end
-  
-  def dashboard
-    render :dashboard
-  end
-  
-  
-  
-  
-  
-  
   
   def txt(phone, vcode)
     

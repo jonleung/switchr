@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20111216200022) do
 
   create_table "certs", :force => true do |t|
-    t.string   "device_name"
+    t.string   "name"
     t.integer  "user_id"
     t.integer  "device_id"
     t.datetime "created_at"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(:version => 20111216200022) do
   end
 
   create_table "devices", :force => true do |t|
-    t.string   "name"
     t.string   "code"
     t.boolean  "desired_state"
     t.boolean  "actual_state"
