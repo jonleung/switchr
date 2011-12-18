@@ -1,9 +1,7 @@
 cmd+f  "TODO"
 
-Device connects to ws 8001
-
-
-
+User
+  
 
 
 

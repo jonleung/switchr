@@ -44,7 +44,7 @@ Notifier.set_n_array(n_array)
 Thread.new {
   EM.run {
 
-    EM::WebSocket.start(:host => "0.0.0.0", :port => 8888) do |ws|
+    EM::WebSocket.start(:host => "0.0.0.0", :port => 9999) do |ws|
       
         ws.onopen {
           puts "WebSocket connection open"
@@ -55,13 +55,20 @@ Thread.new {
           ws_array << ws
         }
         ws.onclose {
-          puts "Connection closed"
+          puts "Connection Closed"
           i = ws_array.index ws
           n_array.delete_at i
           ws_array.delete_at i
         }
         ws.onmessage { |msg|
           puts "Recieved message: #{msg}"
+          
+          regex = /(\d+),(\d)/
+          match = regex.match(msg)
+          if match.present?
+            #Device.update_state(match[1],match[2])
+            puts("SET:#{match[1]},#{match[2]}")
+          end
         }
     end
   }

@@ -23,4 +23,34 @@ class Device < ActiveRecord::Base
     return output_string
   end
   
+  def self.update_state(code, state_string)
+    if state_string == "1"
+      bool_state = true
+    elsif state_string == "0"
+      bool_state = false
+    else
+      throw "error updating state"
+    end
+    
+    device = Device.find_by_code(code)
+    if device
+      device.actual_state = bool_state
+      device.save
+      puts "DEVICE IS NOW = #{device.actual_state}"
+    end
+  end
+  
 end
+
+# == Schema Information
+#
+# Table name: devices
+#
+#  id            :integer         not null, primary key
+#  code          :string(255)
+#  desired_state :boolean
+#  actual_state  :boolean
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+

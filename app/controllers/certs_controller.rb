@@ -1,11 +1,12 @@
 class CertsController < ApplicationController
   
   def index
-    @user = User.find_by_username_and_session_hash(session[:username], session[:session_hash])
+    
+    @user = session_user
     if @user.present?
       @certs = Cert.find_all_by_user_id(@user.id)
     else
-      redirect_to root_path
+      redirect_to root_path, :notice => "Incorrect user credentials"
     end
     
   end

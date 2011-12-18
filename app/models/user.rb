@@ -5,15 +5,13 @@ class User < ActiveRecord::Base
   has_many :certs
   has_many :devices, :through => :certs
   
-  attr_accessible :username
+  attr_accessible :username, :password_hint
   attr_accessor :password
-  
-  validates_presence_of :username, :password
-  validates_uniqueness_of :username
   
   before_save :set_password
   
-  
+  validates_presence_of :username
+  validates_uniqueness_of :username
   
   def self.hash_password(password)
     Digest::SHA2.hexdigest(password)
@@ -41,3 +39,17 @@ class User < ActiveRecord::Base
   end
     
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id            :integer         not null, primary key
+#  username      :string(255)
+#  password_hash :string(255)
+#  password_hint :string(255)
+#  session_hash  :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+

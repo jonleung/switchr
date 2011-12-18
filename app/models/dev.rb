@@ -20,6 +20,11 @@ class Dev < ActiveRecord::Base
     authed ? user : nil
   end
   
+  def self.api_auth(api_key, api_secret)
+    dev = dev.find_by_api_key_and_api_secret(api_key,api_secret)
+    dev.present? ? true : false
+  end
+  
   def to_s
     return email
   end
@@ -39,3 +44,17 @@ class Dev < ActiveRecord::Base
   end
   
 end
+
+# == Schema Information
+#
+# Table name: devs
+#
+#  id            :integer         not null, primary key
+#  email         :string(255)
+#  password_hash :string(255)
+#  api_key       :string(255)
+#  api_secret    :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+

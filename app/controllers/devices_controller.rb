@@ -2,6 +2,8 @@ class DevicesController < ApplicationController
   
   # http_basic_authenticate_with :name => "switch3r", :password => "itshot", :only :index, :create]
   
+  def
+  
   def index
     @devices = Device.all
     render "index"
@@ -29,7 +31,7 @@ class DevicesController < ApplicationController
     
     device = Device.find_by_code(params[:device_code])
     if device.nil?
-      redirect_to :back, :error => "Invalid Device Code"
+      redirect_to :back, :notice => "Invalid Device Code"
     end
     
     if params[:switch] == "on"
@@ -39,9 +41,13 @@ class DevicesController < ApplicationController
       device.desired_state = false
       code = "0"
     end
+    device.save
+    
+    
+    Notifier.notify("ApplicationController")
     
     Notifier.notify("#{device.code},#{code}")
-    device.save
+    LOG.info("SENT:#{device.code},#{code}")
     
     redirect_to :back
   end

@@ -9,3 +9,16 @@ two:
   device_name: MyString
   user_id: 1
   device_id: 1
+
+# == Schema Information
+#
+# Table name: certs
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  user_id    :integer
+#  device_id  :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+

@@ -1,7 +1,6 @@
 class DevSessionsController < ApplicationController
   
   def new
-    
     if session_dev
       redirect_to dev_dashboard_path, :notice => "Welcome Back #{session_dev.email}"
     end

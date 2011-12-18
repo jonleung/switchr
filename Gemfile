@@ -8,7 +8,16 @@ gem 'rails', '3.1.2'
 gem 'sqlite3'
 gem 'twilio-ruby'
 gem 'em-websocket'
-gem 'annotate'
+
+group :development do
+  gem 'ruby-debug19', :require => 'ruby-debug'
+end
+
+group :production do
+  gem 'pg'
+end
+
+gem 'annotate', :git => 'git://github.com/jeremyolliver/annotate_models.git', :branch => 'rake_compatibility'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -30,7 +39,6 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
-gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :test do
   # Pretty printed test output

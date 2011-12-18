@@ -1,0 +1,53 @@
+
+
+  <html>
+    <head>
+      <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'></script>
+      <script>
+        $(document).ready(
+
+          function(){
+            function debug(str){ $("#debug").append("<p>"+str+"</p>"); };
+
+              var set_regex = /^\d+,\d$/;
+              var get_regex = /^\d+$/;
+
+              var zero_or_one = new Number(Math.floor(Math.random()*2));
+
+              ws = new WebSocket("ws://0.0.0.0:9999");
+              
+              ws.onmessage = function(evt) {
+                
+                if (Math.floor(Math.random()*10) == 1) {
+                  $("#msg").append("<p>REC: "+evt.data+"</p>");
+                  if(get_regex.test(evt.data)) {
+                    // alert("get")
+                    s = get_regex.exec(evt.data)[0]+","+zero_or_one;
+                    ws.send(s)
+                    $("#msg").append("<p>SEND: "+s+"</p>");
+                  }
+                  else if(set_regex.test(evt.data)) {
+                    // alert("set")
+                    s = set_regex.exec(evt.data)[1]+","+zero_or_one;
+                    ws.send(evt.data);
+                    $("#msg").append("<p>SEND: "+evt.data+"</p>");
+                  }
+                } 
+              };
+              
+              ws.onclose = function() { debug("socket closed"); };
+              
+              ws.onopen = function() {
+                debug("connected...");
+                ws.send("hello server");
+
+            }
+          }
+        );
+      </script>
+    </head>
+    <body>
+      <div id="debug"></div>
+      <div id="msg"></div>
+    </body>
+  </html>

@@ -1,37 +1,57 @@
 class SessionsController < ApplicationController
 
-  def new    
-    if session[:username].present?
-      @user = User.find_by_username(session[:username])
-      if @user.present? && session[:session_hash].present?
-        if session[:session_hash] == @user.session_hash
-          redirect_to certs_path
-        end
-      end
+  def new
+    if api_request
+      render :text => "POOP"
     end
-  end
-    
-  def create
-    
-    @user = User.find_by_username(session[:username])
-    if @user.nil?
-      redirect_to root_path, :notice => "Your username number has never been setup..."
-    else
-      if params[:vcode] == @user.vcode
-        session[:session_hash] = @user.vcode
-        @user.is_activated = true
-        redirect_to certs_path
-      else
-        flash.now[:error] = "#{params[:vcode]} is invalid for #{session[:username]}"
-        render "new"
-      end
+    if session_user
+      redirect_to certs_path, :notice => "Welcome Back #{session_user.username}"
     end
   end
   
+  def create
+    
+    if params[:username].present? && params[:password].present?
+
+      if User.find_by_username(params[:username]).present?
+        @user = User.auth(params[:username],params[:password])
+
+        if @user.present?
+          session[:user] = {}
+          session[:user][:username] = @user.username
+          session[:user][:password_hash] = @user.password_hash
+          redirect_to certs_path, :notice => "Welcome Back #{@user.username}!"
+          return
+        elsif User.find_by_username(params[:username]).present?
+          redirect_to :back, :notice => "You entered an invalid password."
+          return
+        end
+      else
+        
+        @user = User.new
+        @user.username = params[:username]
+        @user.password_hash = User.hash_password(params[:password])
+        @user.password_hint = params[:password_hint].to_s
+        @user.save
+        session[:user] = {}
+        session[:user][:username] = @user.username
+        session[:user][:password_hash] = @user.password_hash
+        redirect_to certs_path, :notice => "Welcome Aboard #{@user.username}!"
+        return
+      end
+
+    else
+      redirect_to :back, :notice => "Oops! You left one of the fields blank."
+      return
+    end
+
+  end
+  
   def destroy
+    
+    user = session_user
     session[:username] = nil
-    session[:session_hash] = nil
-    redirect_to root_url, :notice => "Logged Out"
+    redirect_to root_url, :notice => "See you later #{user.username}"
   end
 
 end

@@ -4,12 +4,9 @@
 
 <h1> Devices </h1>
 
-<!-- username=<%= session[:username] %>
-session_hash=<%= session[:session_hash] %> -->
 
 <p>
   <%= link_to "Register New Device", new_cert_path %>
-  
 </p>
   
 <table style="text-align:left;">
@@ -19,9 +16,12 @@ session_hash=<%= session[:session_hash] %> -->
     <th width="200">Name</th>
     <th width="200">Code</th>
     <th width="200">Users</th>
+    
+    <th width="200">Action</th>
+     
     <th width="200">Desired State</th>
     <th width="200">Actual State</th>
-    <th width="200">Turn On / Off</th>
+    
     <th width="200">Show</th>
     <th width="200">Destroy</th>
   </tr>
@@ -44,6 +44,7 @@ session_hash=<%= session[:session_hash] %> -->
     
     <td><%= cert.device.desired_state %></td>
     <td><%= cert.device.actual_state %></td>
+    
     <td><%= link_to 'Show', cert %></td>
     <td><%= link_to 'Destroy', cert, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
