@@ -15,7 +15,7 @@
             
             
             
-            ws = new WebSocket("ws://hrn826.wireless-resnet.upenn.edu:9999");
+            ws = new WebSocket("ws://switchr.cis195.com:9999");
             ws.onmessage = function(evt) {
               $("#msg").append("<p>REC: "+evt.data+"</p>");
               

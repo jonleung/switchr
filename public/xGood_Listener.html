@@ -11,7 +11,7 @@
             var set_regex = /^\d+,\d$/;
             var get_regex = /^\d+$/;
         
-            ws = new WebSocket("ws://0.0.0.0:9999");
+            ws = new WebSocket("ws://switchr.cis195.com:9999");
             ws.onmessage = function(evt) {
               $("#msg").append("<p>"+evt.data+"</p>");
               
