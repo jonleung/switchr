@@ -13,9 +13,6 @@ group :development do
   gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
-group :production do
-  gem 'pg'
-end
 
 gem 'annotate', :git => 'git://github.com/jeremyolliver/annotate_models.git', :branch => 'rake_compatibility'
 

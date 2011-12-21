@@ -41,7 +41,7 @@ class SessionsController < ApplicationController
         @user = User.new
         @user.username = params[:username]
         if api_request
-          @user.password_hash = params[:hashed_password]
+          @user.password_hash = params[:password_hash]
         else
           @user.password_hash = User.hash_password(params[:password])
         end
