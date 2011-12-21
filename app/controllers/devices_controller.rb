@@ -1,6 +1,6 @@
 class DevicesController < ApplicationController
   
-  # http_basic_authenticate_with :name => "switch3r", :password => "itshot", :only :index, :create]
+  http_basic_authenticate_with :name => "switch3r", :password => "itshot", :only => :index
   
   def index
     @devices = Device.all
