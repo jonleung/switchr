@@ -4,21 +4,26 @@ class ApplicationController < ActionController::Base
   #http://stackoverflow.com/questions/6545392/overiding-request-forgery-whitelisted
   
   def api_request
-    request.params.present?
+    request.params[:api_key].present?
   end
   
-  def verify_authenticity_token
-    
+  def api_auth (api_key, api_secret)
+    dev = Dev.find_by_api_key_and_api_secret(api_key, api_secret)
+    return dev.present? ? true : false
+  end
+  
+  def handle_unverified_request
     authed = false
     if request.params.present?
       if request.params[:api_key].present? && request.params[:api_secret].present?
         api_key = request.params[:api_key]
         api_secret = request.params[:api_secret]
-        authed = Dev.api_auth(api_key, api_secret)
+        authed = api_auth(api_key, api_secret)
+        return authed
       end
     end
-    #
-    super unless authed
+    render :text => "api_authentiation=invalid"
+    return
   end
   
   def session_user
@@ -47,12 +52,5 @@ class ApplicationController < ActionController::Base
     end
     return nil
   end
-  
-  def api_auth (api_key, api_secret)
-    dev = Dev.find_by_api_key_and_api_secret(api_key, api_secret)
-    return dev.present? ? true : false
-  end
-  
-
   
 end

@@ -62,11 +62,12 @@ Thread.new {
         }
         ws.onmessage { |msg|
           puts "Recieved message: #{msg}"
-          
+      
           regex = /(\d+),(\d)/
           match = regex.match(msg)
           if match.present?
-            #Device.update_state(match[1],match[2])
+          
+            Device.update_state(match[1],match[2])
             puts("SET:#{match[1]},#{match[2]}")
           end
         }

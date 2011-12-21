@@ -29,3 +29,10 @@
     <%= submit_tag "authenticate" %>
   </p>
 <% end %>
+
+<p>
+  <%= link_to "Are you a developer?", dev_login_path %>
+</p>
+<p>
+  <%= link_to "Devices", url_for(:action => 'index', :controller => 'devices') %>
+</p>

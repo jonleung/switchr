@@ -5,9 +5,9 @@ class Device < ActiveRecord::Base
 
   @@r = Random.new
     
-  def set_defaults  
+  def set_defaults(first_char)
     begin
-      code = @@r.rand(100000000...999999999).to_s  
+      code = first_char + @@r.rand(10000000...99999999).to_s  
     end while Device.find_by_code(code).present?
     
     self.code = code
@@ -24,6 +24,7 @@ class Device < ActiveRecord::Base
   end
   
   def self.update_state(code, state_string)
+    
     if state_string == "1"
       bool_state = true
     elsif state_string == "0"

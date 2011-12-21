@@ -15,12 +15,20 @@ Switchr::Application.routes.draw do
 
   resources :certs
   match 'dashboard' => 'certs#index', :as => :dashboard, :via => :get
+  post 'mbed/register' => 'certs#create', :as => :mbed_reg_path
   
+  resources :devices
   post 'switch' => 'devices#switch', :as => :switch
+  post 'mbed' => 'devices#switch'
+  get 'mbeds' => 'certs#index'
   
   #TODO, restrict resources
 
-  resources :devices
+  
+  
+  #API ROUTES
+  
+  post 'authenticate' => 'sessions#create'
   
 
     

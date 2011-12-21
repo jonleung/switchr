@@ -15,7 +15,8 @@ class DevsController < ApplicationController
   end
   
   def destroy
-    
+    session[:dev] = nil
+    redirect_to dev_login_path
   end
 
 end

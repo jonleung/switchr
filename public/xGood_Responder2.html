@@ -12,8 +12,10 @@
             var get_regex = /^\d+$/;
             
             var zero_or_one = new Number(Math.floor(Math.random()*2));
-        
-            ws = new WebSocket("ws://0.0.0.0:9999");
+            
+            
+            
+            ws = new WebSocket("ws://hrn826.wireless-resnet.upenn.edu:9999");
             ws.onmessage = function(evt) {
               $("#msg").append("<p>REC: "+evt.data+"</p>");
               

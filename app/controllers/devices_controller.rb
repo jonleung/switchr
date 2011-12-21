@@ -2,8 +2,6 @@ class DevicesController < ApplicationController
   
   # http_basic_authenticate_with :name => "switch3r", :password => "itshot", :only :index, :create]
   
-  def
-  
   def index
     @devices = Device.all
     render "index"
@@ -12,7 +10,7 @@ class DevicesController < ApplicationController
   def create
     
     @device = Device.new
-    @device.set_defaults
+    @device.set_defaults(params[:first_char])
     if @device.save
       redirect_to :back, :notice => "Device #{@device.code} created"
     else
@@ -28,10 +26,41 @@ class DevicesController < ApplicationController
   end
   
   def switch
+    if api_request
+      if params[:device_id].nil?
+        render :text => "device_id=missing"
+        return
+      else
+        device_code = params[:device_id]
+      end
+      user = User.find_by_username_and_password_hash(params[:username],params[:password_hash])
+      if user.nil?
+        render :text => "username_or_password=invalid"
+        return
+      end
+      device = Device.find_by_code(device_code)
+      if device.nil?
+        render :text => "device_id=invalid"
+        return
+      end
+      if user.devices.include?(device)
+        if params[:delete].present? && params[:delete]=="true"
+          cert = Cert.find_by_user_id_and_device_id(user.id,device.id)
+          cert.destroy
+          render :text => "#{device.code}=deleted"
+          return
+        end
+      else
+        render :text => "user_does_not_have_permission_to_change_device"
+        return 
+      end
     
-    device = Device.find_by_code(params[:device_code])
-    if device.nil?
-      redirect_to :back, :notice => "Invalid Device Code"
+    else
+      device = Device.find_by_code(params[:device_code])
+      if device.nil?
+        redirect_to :back, :notice => "Invalid Device Code"
+        return
+      end
     end
     
     if params[:switch] == "on"
@@ -40,16 +69,23 @@ class DevicesController < ApplicationController
     elsif params[:switch] == "off"
       device.desired_state = false
       code = "0"
+    else
+      render :text => "invalid_switch_parameter, should be either 'on' or 'off'"
+      return
     end
     device.save
-    
-    
-    Notifier.notify("ApplicationController")
-    
+        
     Notifier.notify("#{device.code},#{code}")
-    LOG.info("SENT:#{device.code},#{code}")
+    LOG.info("SENT:#{device.code}=#{code}")
     
-    redirect_to :back
+    if api_request
+      render :text => "#{device.code}=#{code}"
+      return
+    else
+      redirect_to :back
+      return
+    end
+    
   end
   
    
