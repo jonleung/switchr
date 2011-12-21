@@ -11,9 +11,9 @@ class CertsController < ApplicationController
       devices = user.devices
       output_string = "["
       devices.each do |device|
-        if device.actual_state == true
+        if device.desired_state == true
           device_state = "1"
-        elsif device.actual_state == false
+        elsif device.desired_state == false
           device_state = "0"
         else
           render :text => "MBEDS_ERROR"

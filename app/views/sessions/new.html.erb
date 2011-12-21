@@ -10,29 +10,29 @@
   </div>
 <% end %>
 
-<h1> What is your Username? </h1>
+<div>
+  <h1> Login or Register </h1>
 
-<%= form_tag sessions_path do %>
-  <p>
-    <%= label_tag :username %><br>
-    <%= text_field_tag :username, params[:username] %>
-  </p>
-  <p>
-    <%= label_tag :password %><br>
-    <%= password_field_tag :password, params[:password] %>
-  </p>
-  <p>
-     <%= label_tag :password_hint %><br>
-     <%= password_field_tag :password_hint, params[:password_hint] %>
-   </p>
-  <p class="btn large primary">
-    <%= submit_tag "authenticate", :class => "" %>
-  </p>
-<% end %>
+  <%= form_tag sessions_path do %>
+    <p>
+      <%= label_tag :username %><br>
+      <%= text_field_tag :username, params[:username] %>
+    </p>
+    <p>
+      <%= label_tag :password %><br>
+      <%= password_field_tag :password, params[:password] %>
+    </p>
+    <p>
+       <%= label_tag :password_hint %><br>
+       <%= password_field_tag :password_hint, params[:password_hint] %>
+     </p>
+      <%= submit_tag "authenticate", :class => "btn large primary" %>
+  <% end %>
 
-<p>
-  <%= link_to "Are you a developer?", dev_login_path %>
-</p>
-<p>
-  <%= link_to "Devices", url_for(:action => 'index', :controller => 'devices') %>
-</p>
+  <p class="btn">
+    <%= link_to "Are you a developer?", dev_login_path %>
+  </p>
+  <p class="btn">
+    <%= link_to "Devices", url_for(:action => 'index', :controller => 'devices') %>
+  </p>
+</div>
